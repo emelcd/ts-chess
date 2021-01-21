@@ -1,14 +1,14 @@
 var Board = /** @class */ (function () {
     function Board() {
         this.stateOfBoard = {
-            7: [4, 6, 8, 10, 12, 8, 6, 4],
-            6: [2, 2, 2, 2, 2, 2, 2, 2],
-            5: [0, 0, 0, 0, 0, 0, 0, 0],
-            4: [0, 0, 0, 0, 0, 0, 0, 0],
-            3: [0, 0, 0, 0, 0, 0, 0, 0],
+            0: [4, 6, 8, 10, 12, 8, 6, 4],
+            1: [2, 2, 2, 2, 2, 2, 2, 2],
             2: [0, 0, 0, 0, 0, 0, 0, 0],
-            1: [1, 1, 1, 1, 1, 1, 1, 1],
-            0: [3, 5, 7, 9, 11, 7, 5, 3]
+            3: [0, 0, 0, 0, 0, 12, 0, 0],
+            4: [0, 0, 0, 1, 0, 0, 0, 0],
+            5: [0, 0, 0, 0, 0, 0, 0, 0],
+            6: [1, 1, 1, 1, 1, 1, 1, 1],
+            7: [3, 5, 7, 9, 11, 7, 5, 3]
         };
         this.turn = 1;
     }
@@ -112,23 +112,23 @@ function possibleMovesPawn(pawnToMove) {
     var bagof = [];
     // MAYBE IS BEST CREATE A MATH FUNCTION FOR THIS
     if (pawnToMove.color == "WHITE" && pawnToMove.everMoved == false) {
-        var union1 = (ecox + 1) + "," + (ecoy);
-        var union2 = (ecox + 2) + "," + (ecoy);
+        var union1 = ecox + 1 + "," + ecoy;
+        var union2 = ecox + 2 + "," + ecoy;
         bagof.push(union1);
         bagof.push(union2);
     }
     else if (pawnToMove.color == "BLACK" && pawnToMove.everMoved == false) {
-        var union3 = (ecox - 1) + "," + (ecoy);
-        var union4 = (ecox - 2) + "," + (ecoy);
+        var union3 = ecox - 1 + "," + ecoy;
+        var union4 = ecox - 2 + "," + ecoy;
         bagof.push(union3);
         bagof.push(union4);
     }
     else if (pawnToMove.color == "WHITE" && pawnToMove.everMoved == true) {
-        var union5 = (ecox + 1) + "," + (ecoy);
+        var union5 = ecox + 1 + "," + ecoy;
         bagof.push(union5);
     }
     else {
-        var union6 = (ecox - 1) + "," + ecoy;
+        var union6 = ecox - 1 + "," + ecoy;
         bagof.push(union6);
     }
     // var union: string = ecox + "," + (ecoy);
@@ -160,19 +160,47 @@ var piezaBB = getPieza(1, 5);
 // var piezaXX = new Pieza("peon", 1, 0);
 // console.log(piezaXX.getPositionState());
 function changeStateBoard(oldStateX, oldStateY, newStateX, newStateY) { }
-// console.log(piezaXX.getPositionState());
-// console.log(piezaXX.setPositionState(2, 2));
-// console.log(piezaXX.getPositionState());
-// console.log(tablero.stateOfBoard[1]);
-// console.log(tablero.setNewState(1, 0, 2));
-// console.log(tablero.stateOfBoard);
-// var testing = document.getElementById("root");
-// testing.innerHTML = `
-// <table id="table"></table>
-// <h2>${piezaBB.tipo}</h2>
-// <h3>${piezaBB.coordenadaX},${piezaBB.coordenadaY}
-// `
-// var testingTable = document.getElementById("table");
+function renderPosition(state) {
+    if (state == 2) {
+        return "&#9823;";
+    }
+    else if (state == 1) {
+        return "&#9817;";
+    }
+    else if (state == 4) {
+        return "&#9820;";
+    }
+    else if (state == 3) {
+        return "&#9814;";
+    }
+    else if (state == 6) {
+        return "&#9822;";
+    }
+    else if (state == 5) {
+        return "&#9816;";
+    }
+    else if (state == 8) {
+        return "&#9821;";
+    }
+    else if (state == 7) {
+        return "&#9815;";
+    }
+    else if (state == 10) {
+        return "&#9819;";
+    }
+    else if (state == 9) {
+        return "&#9813;";
+    }
+    else if (state == 12) {
+        return "&#9818;";
+    }
+    else if (state == 11) {
+        return "&#9812;";
+    }
+    else {
+        return "";
+    }
+}
 var body = document.getElementsByTagName("body")[0];
 var tabla = document.createElement("table");
 var tblBody = document.createElement("tbody");
@@ -187,8 +215,11 @@ Object.keys(tablero.stateOfBoard).forEach(function (elementROW) {
         var fix3 = +elementROW;
         var fix5 = +elementCOLUMNS;
         var celda = document.createElement("td");
-        var textoCelda = document.createTextNode(tablero.getStatePosition(fix3, fix5));
-        celda.appendChild(textoCelda);
+        // var textoCelda = document.createTextNode(
+        //   renderPosition(tablero.getStatePosition(fix3, fix5))
+        // );
+        celda.innerHTML = "" + renderPosition(tablero.getStatePosition(fix3, fix5));
+        // celda.appendChild(textoCelda);
         hilera.appendChild(celda);
         fix2++;
         fix4++;

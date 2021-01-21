@@ -4,14 +4,14 @@ class Board {
 
   constructor() {
     this.stateOfBoard = {
-      7: [4, 6, 8, 10, 12, 8, 6, 4],
-      6: [2, 2, 2, 2, 2, 2, 2, 2],
-      5: [0, 0, 0, 0, 0, 0, 0, 0],
-      4: [0, 0, 0, 0, 0, 0, 0, 0],
-      3: [0, 0, 0, 0, 0, 0, 0, 0],
+      0: [4, 6, 8, 10, 12, 8, 6, 4],
+      1: [2, 2, 2, 2, 2, 2, 2, 2],
       2: [0, 0, 0, 0, 0, 0, 0, 0],
-      1: [1, 1, 1, 1, 1, 1, 1, 1],
-      0: [3, 5, 7, 9, 11, 7, 5, 3],
+      3: [0, 0, 0, 0, 0, 12, 0, 0],
+      4: [0, 0, 0, 1, 0, 0, 0, 0],
+      5: [0, 0, 0, 0, 0, 0, 0, 0],
+      6: [1, 1, 1, 1, 1, 1, 1, 1],
+      7: [3, 5, 7, 9, 11, 7, 5, 3],
     };
     this.turn = 1;
   }
@@ -168,23 +168,46 @@ function changeStateBoard(
   newStateX: number,
   newStateY: number
 ) {}
-// console.log(piezaXX.getPositionState());
-// console.log(piezaXX.setPositionState(2, 2));
-// console.log(piezaXX.getPositionState());
-// console.log(tablero.stateOfBoard[1]);
-// console.log(tablero.setNewState(1, 0, 2));
-// console.log(tablero.stateOfBoard);
 
-// var testing = document.getElementById("root");
-// testing.innerHTML = `
-// <table id="table"></table>
-// <h2>${piezaBB.tipo}</h2>
-// <h3>${piezaBB.coordenadaX},${piezaBB.coordenadaY}
-// `
-// var testingTable = document.getElementById("table");
-function renderPosition(state: number) {
-  if (state == 1) {
-    return "&#9817;";
+function renderPosition(state) {
+  if (state == 2) {
+    return "&#9823;";
+  } 
+  else if (state == 1) {
+    return "&#9817;"
+  } 
+  else if (state ==  4) {
+    return "&#9820;"
+  } 
+  else if (state == 3) {
+    return "&#9814;"
+  } 
+  else if (state == 6) {
+    return "&#9822;"
+  } 
+  else if (state == 5) {
+    return "&#9816;"
+  } 
+  else if (state == 8) {
+    return "&#9821;"
+  } 
+  else if (state == 7) {
+    return "&#9815;"
+  } 
+  else if (state == 10) {
+    return "&#9819;"
+  } 
+  else if (state == 9) {
+    return "&#9813;"
+  } 
+  else if (state == 12) {
+    return "&#9818;"
+  } 
+  else if (state == 11) {
+    return "&#9812;"
+  } 
+  else {
+    return "";
   }
 }
 var body = document.getElementsByTagName("body")[0];
@@ -202,11 +225,13 @@ Object.keys(tablero.stateOfBoard).forEach((elementROW) => {
     let fix3: number = +elementROW;
     let fix5: number = +elementCOLUMNS;
     var celda = document.createElement("td");
-    var textoCelda = document.createTextNode(
-      renderPosition(tablero.getStatePosition(fix3, fix5))
-    );
+    // var textoCelda = document.createTextNode(
+    //   renderPosition(tablero.getStatePosition(fix3, fix5))
+      
+    // );
+    celda.innerHTML= `${renderPosition(tablero.getStatePosition(fix3, fix5))}`
 
-    celda.appendChild(textoCelda);
+    // celda.appendChild(textoCelda);
     hilera.appendChild(celda);
     fix2++;
     fix4++;
