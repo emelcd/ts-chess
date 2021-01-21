@@ -4,8 +4,8 @@ var Board = /** @class */ (function () {
             0: [4, 6, 8, 10, 12, 8, 6, 4],
             1: [2, 2, 2, 2, 2, 2, 2, 2],
             2: [0, 0, 0, 0, 0, 0, 0, 0],
-            3: [0, 0, 0, 0, 0, 12, 0, 0],
-            4: [0, 0, 0, 1, 0, 0, 0, 0],
+            3: [0, 0, 0, 0, 0, 0, 0, 0],
+            4: [0, 0, 0, 0, 0, 0, 0, 0],
             5: [0, 0, 0, 0, 0, 0, 0, 0],
             6: [1, 1, 1, 1, 1, 1, 1, 1],
             7: [3, 5, 7, 9, 11, 7, 5, 3]
@@ -16,10 +16,11 @@ var Board = /** @class */ (function () {
         return this.stateOfBoard[coordenadaX][coordenadaY];
     };
     // Impares Blancos / Pares Negros / 0-> Sin Pieza
-    Board.prototype.setNewState = function (coordenadaX, coordenadaY, newState) {
-        this.stateOfBoard[coordenadaX][coordenadaY] = newState;
+    Board.prototype.setNewState = function (coordenadaX, coordenadaY, pieza) {
+        this.stateOfBoard[coordenadaX][coordenadaY] = pieza.state;
+        this.stateOfBoard[pieza.coordenadaX][pieza.coordenadaY] = 0;
         this.nextTurn();
-        return coordenadaX + "," + coordenadaY + "->Tiene un Estado de " + newState;
+        console.log(this.stateOfBoard);
     };
     Board.prototype.nextTurn = function () {
         this.turn = this.turn + 1;
@@ -201,66 +202,48 @@ function renderPosition(state) {
         return "";
     }
 }
-var body = document.getElementsByTagName("body")[0];
-var tabla = document.createElement("table");
-var tblBody = document.createElement("tbody");
-Object.keys(tablero.stateOfBoard).forEach(function (elementROW) {
-    // console.log(tablero.stateOfBoard[elementROW])
-    var fix = +elementROW;
-    var fix2 = 0;
-    var fix4 = 0;
-    var hilera = document.createElement("tr");
-    Object.keys(tablero.stateOfBoard[elementROW]).forEach(function (elementCOLUMNS) {
-        // console.log(elementCOLUMNS)
-        var fix3 = +elementROW;
-        var fix5 = +elementCOLUMNS;
-        var celda = document.createElement("td");
-        // var textoCelda = document.createTextNode(
-        //   renderPosition(tablero.getStatePosition(fix3, fix5))
-        // );
-        celda.innerHTML = "" + renderPosition(tablero.getStatePosition(fix3, fix5));
-        // celda.appendChild(textoCelda);
-        hilera.appendChild(celda);
-        fix2++;
-        fix4++;
-        // console.log(fix2+""+fix4);
-    });
-    tblBody.appendChild(hilera);
-    tabla.appendChild(tblBody);
-    // appends <table> into <body>
-    body.appendChild(tabla);
-    // modifica el atributo "border" de la tabla y lo fija a "2";
-    tabla.setAttribute("width", "100%");
-    tabla.setAttribute("heigth", "100%");
-    tabla.setAttribute("border", "2");
-});
+;
 function genera_tabla() {
     // Obtener la referencia del elemento body
-    var body = document.getElementsByTagName("div")[0];
-    // Crea un elemento <table> y un elemento <tbody>
+    var body = document.getElementsByTagName("body")[0];
     var tabla = document.createElement("table");
     var tblBody = document.createElement("tbody");
-    // Crea las celdas
-    for (var i = 0; i < 10; i++) {
-        // Crea las hileras de la tabla
+    Object.keys(tablero.stateOfBoard).forEach(function (elementROW) {
+        // console.log(tablero.stateOfBoard[elementROW])
+        var fix = +elementROW;
+        var fix2 = 0;
+        var fix4 = 0;
         var hilera = document.createElement("tr");
-        for (var j = 0; j < 2; j++) {
-            // Crea un elemento <td> y un nodo de texto, haz que el nodo de
-            // texto sea el contenido de <td>, ubica el elemento <td> al final
-            // de la hilera de la tabla
+        Object.keys(tablero.stateOfBoard[elementROW]).forEach(function (elementCOLUMNS) {
+            // console.log(elementCOLUMNS)
+            var fix3 = +elementROW;
+            var fix5 = +elementCOLUMNS;
             var celda = document.createElement("td");
-            var textoCelda = document.createTextNode("celda en la hilera " + i + ", columna " + j);
-            celda.appendChild(textoCelda);
+            // var textoCelda = document.createTextNode(
+            //   renderPosition(tablero.getStatePosition(fix3, fix5))
+            // );
+            celda.innerHTML = "" + renderPosition(tablero.getStatePosition(fix3, fix5));
+            // celda.appendChild(textoCelda);
             hilera.appendChild(celda);
-        }
-        // agrega la hilera al final de la tabla (al final del elemento tblbody)
+            fix2++;
+            fix4++;
+            // console.log(fix2+""+fix4);
+        });
         tblBody.appendChild(hilera);
-    }
-    // posiciona el <tbody> debajo del elemento <table>
-    tabla.appendChild(tblBody);
-    // appends <table> into <body>
-    body.appendChild(tabla);
-    // modifica el atributo "border" de la tabla y lo fija a "2";
-    tabla.setAttribute("border", "2");
+        tabla.appendChild(tblBody);
+        // appends <table> into <body>
+        body.appendChild(tabla);
+        // modifica el atributo "border" de la tabla y lo fija a "2";
+        // tabla.setAttribute("width", "100%");
+        // tabla.setAttribute("heigth", "100%");
+        tabla.setAttribute("border", "2");
+    });
 }
+genera_tabla();
+var peonXX = new Pieza(4, 4, 1);
+// setTimeout(function(){ alert("Hello"); }, 3000);
+tablero.setNewState(4, 4, peonXX);
+console.log(tablero.stateOfBoard);
+tablero.stateOfBoard[0][0] = 1;
+console.log(tablero.stateOfBoard);
 // genera_tabla();

@@ -3,5 +3,13 @@
     font-size: xx-large;
 }
 table {
-    min-height: 100vh;
+    min-height: 50vh;
+    max-width: 60vw;
+}
+
+td {
+    padding: 0.725rem;
+}
+tr {
+
 }
