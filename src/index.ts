@@ -50,10 +50,9 @@ class Pieza {
     this.coordenadaX = coordenadaX;
     this.coordenadaY = coordenadaY;
     this.state = state;
-    if(this.state != 0) {
+    if (this.state != 0) {
       this.color = this.getColor();
       this.tipo = this.getType();
-
     }
   }
 
@@ -67,7 +66,7 @@ class Pieza {
   }
   getColor() {
     var maths = this.state % 2;
-    if(this.state != 0) {
+    if (this.state != 0) {
       if (maths == 1) {
         this.color = "WHITE";
         return "WHITE";
@@ -106,50 +105,46 @@ class Pieza {
 var tablero = new Board();
 
 // for (let i = 0 ; i < tablero.stateOfBoard[i].length ; i++){
-  
+
 //   console.log(tablero.stateOfBoard[3][3]);
 // }
 function possibleMovesPawn(pawnToMove: Pieza) {
   // POsible chECKER
   var ecox = pawnToMove.coordenadaX;
   var ecoy = pawnToMove.coordenadaY;
-  var bagof : string[] = [];
+  var bagof: string[] = [];
   // MAYBE IS BEST CREATE A MATH FUNCTION FOR THIS
-  if(pawnToMove.color=="WHITE" && pawnToMove.everMoved == false) {
-    var union1: string = (ecox+1) + "," + (ecoy);
-    var union2: string = (ecox+2) + "," + (ecoy);
-    bagof.push(union1)
-    bagof.push(union2)
-    
-  } else if (pawnToMove.color=="BLACK" && pawnToMove.everMoved == false) {
-    var union3: string = (ecox-1) + "," + (ecoy);
-    var union4: string = (ecox-2) + "," + (ecoy);
-    bagof.push(union3)
-    bagof.push(union4)
-    
-  } else if (pawnToMove.color=="WHITE" && pawnToMove.everMoved == true) {
-    var union5: string = (ecox+1) + "," + (ecoy);
-    bagof.push(union5)
-    
+  if (pawnToMove.color == "WHITE" && pawnToMove.everMoved == false) {
+    var union1: string = ecox + 1 + "," + ecoy;
+    var union2: string = ecox + 2 + "," + ecoy;
+    bagof.push(union1);
+    bagof.push(union2);
+  } else if (pawnToMove.color == "BLACK" && pawnToMove.everMoved == false) {
+    var union3: string = ecox - 1 + "," + ecoy;
+    var union4: string = ecox - 2 + "," + ecoy;
+    bagof.push(union3);
+    bagof.push(union4);
+  } else if (pawnToMove.color == "WHITE" && pawnToMove.everMoved == true) {
+    var union5: string = ecox + 1 + "," + ecoy;
+    bagof.push(union5);
   } else {
-    var union6: string = (ecox-1) + "," + ecoy;
-    bagof.push(union6)
+    var union6: string = ecox - 1 + "," + ecoy;
+    bagof.push(union6);
   }
   // var union: string = ecox + "," + (ecoy);
-  
+
   console.log(bagof);
   // return ecox + " " + ecoy;
 }
 function possibleMovesTorre(towerToMove: Pieza) {
   var ecox = towerToMove.coordenadaX;
   var ecoy = towerToMove.coordenadaY;
-  var bagof : string[] = [];
+  var bagof: string[] = [];
   // console.log(tablero.stateOfBoard[ecox])
-  tablero.stateOfBoard[ecox].forEach(element => {
-    console.log(element)
+  tablero.stateOfBoard[ecox].forEach((element) => {
+    console.log(element);
   });
   // console.log(ecox +","+ ecoy)
-  
 }
 function getPieza(stateX: number, stateY: number) {
   let state = tablero.getStatePosition(stateX, stateY);
@@ -180,8 +175,6 @@ function changeStateBoard(
 // console.log(tablero.setNewState(1, 0, 2));
 // console.log(tablero.stateOfBoard);
 
-
-
 // var testing = document.getElementById("root");
 // testing.innerHTML = `
 // <table id="table"></table>
@@ -189,32 +182,36 @@ function changeStateBoard(
 // <h3>${piezaBB.coordenadaX},${piezaBB.coordenadaY}
 // `
 // var testingTable = document.getElementById("table");
-
+function renderPosition(state: number) {
+  if (state == 1) {
+    return "&#9817;";
+  }
+}
 var body = document.getElementsByTagName("body")[0];
 
-var tabla   = document.createElement("table");
+var tabla = document.createElement("table");
 var tblBody = document.createElement("tbody");
-Object.keys(tablero.stateOfBoard).forEach(elementROW => {
+Object.keys(tablero.stateOfBoard).forEach((elementROW) => {
   // console.log(tablero.stateOfBoard[elementROW])
   let fix: number = +elementROW;
   let fix2: number = 0;
   let fix4: number = 0;
-  var hilera = document.createElement("tr")
-  Object.keys(tablero.stateOfBoard[elementROW]).forEach(elementCOLUMNS => {
+  var hilera = document.createElement("tr");
+  Object.keys(tablero.stateOfBoard[elementROW]).forEach((elementCOLUMNS) => {
     // console.log(elementCOLUMNS)
     let fix3: number = +elementROW;
     let fix5: number = +elementCOLUMNS;
     var celda = document.createElement("td");
-    var textoCelda = document.createTextNode(tablero.getStatePosition(fix3, fix5));
-    
-    
+    var textoCelda = document.createTextNode(
+      renderPosition(tablero.getStatePosition(fix3, fix5))
+    );
+
     celda.appendChild(textoCelda);
     hilera.appendChild(celda);
     fix2++;
     fix4++;
     // console.log(fix2+""+fix4);
-    
-  })
+  });
   tblBody.appendChild(hilera);
   tabla.appendChild(tblBody);
   // appends <table> into <body>
@@ -223,8 +220,6 @@ Object.keys(tablero.stateOfBoard).forEach(elementROW => {
   tabla.setAttribute("width", "100%");
   tabla.setAttribute("heigth", "100%");
   tabla.setAttribute("border", "2");
-
-  
 });
 
 function genera_tabla() {
@@ -232,7 +227,7 @@ function genera_tabla() {
   var body = document.getElementsByTagName("div")[0];
 
   // Crea un elemento <table> y un elemento <tbody>
-  var tabla   = document.createElement("table");
+  var tabla = document.createElement("table");
   var tblBody = document.createElement("tbody");
 
   // Crea las celdas
@@ -245,7 +240,9 @@ function genera_tabla() {
       // texto sea el contenido de <td>, ubica el elemento <td> al final
       // de la hilera de la tabla
       var celda = document.createElement("td");
-      var textoCelda = document.createTextNode("celda en la hilera "+i+", columna "+j);
+      var textoCelda = document.createTextNode(
+        "celda en la hilera " + i + ", columna " + j
+      );
       celda.appendChild(textoCelda);
       hilera.appendChild(celda);
     }
