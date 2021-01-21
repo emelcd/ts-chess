@@ -240,10 +240,13 @@ function genera_tabla() {
     });
 }
 genera_tabla();
-var peonXX = new Pieza(4, 4, 1);
+var peonXX = new Pieza(1, 1, 1);
+var peonBB = new Pieza(4, 4, 3);
 // setTimeout(function(){ alert("Hello"); }, 3000);
-tablero.setNewState(4, 4, peonXX);
+tablero.setNewState(7, 7, peonXX);
+tablero.setNewState(0, 7, peonBB);
 console.log(tablero.stateOfBoard);
-tablero.stateOfBoard[0][0] = 1;
+tablero.stateOfBoard[peonXX.coordenadaX][peonXX.coordenadaY] = 0;
+tablero.stateOfBoard[4][4] = 1;
 console.log(tablero.stateOfBoard);
-// genera_tabla();
+genera_tabla();
