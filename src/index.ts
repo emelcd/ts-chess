@@ -4,15 +4,25 @@ class Board {
 
   constructor() {
     this.stateOfBoard = {
-      0: [4, 6, 8, 10, 12, 8, 6, 4],
-      1: [2, 2, 2, 2, 2, 2, 2, 2],
+      0: [0, 0, 0, 0, 0, 0, 0, 0],
+      1: [0, 0, 0, 0, 0, 0, 0, 0],
       2: [0, 0, 0, 0, 0, 0, 0, 0],
       3: [0, 0, 0, 0, 0, 0, 0, 0],
       4: [0, 0, 0, 0, 0, 0, 0, 0],
       5: [0, 0, 0, 0, 0, 0, 0, 0],
-      6: [1, 1, 1, 1, 1, 1, 1, 1],
-      7: [3, 5, 7, 9, 11, 7, 5, 3],
+      6: [0, 0, 0, 0, 0, 0, 0, 0],
+      7: [0, 0, 0, 0, 0, 0, 0, 0],
     };
+    // this.stateOfBoard = {
+    //   0: [4, 6, 8, 10, 12, 8, 6, 4],
+    //   1: [2, 2, 2, 2, 2, 2, 2, 2],
+    //   2: [0, 0, 0, 0, 0, 0, 0, 0],
+    //   3: [0, 0, 0, 0, 0, 0, 0, 0],
+    //   4: [0, 0, 0, 0, 0, 0, 0, 0],
+    //   5: [0, 0, 0, 0, 0, 0, 0, 0],
+    //   6: [1, 1, 1, 1, 1, 1, 1, 1],
+    //   7: [3, 5, 7, 9, 11, 7, 5, 3],
+    // };
     this.turn = 1;
   }
   getStatePosition(coordenadaX: number, coordenadaY: number) {
@@ -20,12 +30,11 @@ class Board {
   }
   // Impares Blancos / Pares Negros / 0-> Sin Pieza
   setNewState(coordenadaX: number, coordenadaY: number, pieza: Pieza) {
-
     this.stateOfBoard[coordenadaX][coordenadaY] = pieza.state;
     this.stateOfBoard[pieza.coordenadaX][pieza.coordenadaY] = 0;
 
     this.nextTurn();
-    console.log(this.stateOfBoard)
+    console.log(this.stateOfBoard);
   }
   nextTurn() {
     this.turn = this.turn + 1;
@@ -175,46 +184,32 @@ function changeStateBoard(
 function renderPosition(state) {
   if (state == 2) {
     return "&#9823;";
-  } 
-  else if (state == 1) {
-    return "&#9817;"
-  } 
-  else if (state ==  4) {
-    return "&#9820;"
-  } 
-  else if (state == 3) {
-    return "&#9814;"
-  } 
-  else if (state == 6) {
-    return "&#9822;"
-  } 
-  else if (state == 5) {
-    return "&#9816;"
-  } 
-  else if (state == 8) {
-    return "&#9821;"
-  } 
-  else if (state == 7) {
-    return "&#9815;"
-  } 
-  else if (state == 10) {
-    return "&#9819;"
-  } 
-  else if (state == 9) {
-    return "&#9813;"
-  } 
-  else if (state == 12) {
-    return "&#9818;"
-  } 
-  else if (state == 11) {
-    return "&#9812;"
-  } 
-  else {
+  } else if (state == 1) {
+    return "&#9817;";
+  } else if (state == 4) {
+    return "&#9820;";
+  } else if (state == 3) {
+    return "&#9814;";
+  } else if (state == 6) {
+    return "&#9822;";
+  } else if (state == 5) {
+    return "&#9816;";
+  } else if (state == 8) {
+    return "&#9821;";
+  } else if (state == 7) {
+    return "&#9815;";
+  } else if (state == 10) {
+    return "&#9819;";
+  } else if (state == 9) {
+    return "&#9813;";
+  } else if (state == 12) {
+    return "&#9818;";
+  } else if (state == 11) {
+    return "&#9812;";
+  } else {
     return "";
   }
 }
-;
-
 function genera_tabla() {
   // Obtener la referencia del elemento body
   var body = document.getElementsByTagName("body")[0];
@@ -234,10 +229,12 @@ function genera_tabla() {
       var celda = document.createElement("td");
       // var textoCelda = document.createTextNode(
       //   renderPosition(tablero.getStatePosition(fix3, fix5))
-        
+
       // );
-      celda.innerHTML= `${renderPosition(tablero.getStatePosition(fix3, fix5))}`
-  
+      celda.innerHTML = `${renderPosition(
+        tablero.getStatePosition(fix3, fix5)
+      )}`;
+
       // celda.appendChild(textoCelda);
       hilera.appendChild(celda);
       fix2++;
@@ -252,19 +249,28 @@ function genera_tabla() {
     // tabla.setAttribute("width", "100%");
     // tabla.setAttribute("heigth", "100%");
     tabla.setAttribute("border", "2");
-  })
+  });
 }
 
 genera_tabla();
 
-var peonXX: Pieza = new Pieza(1,1,1);
-var peonBB: Pieza = new Pieza(4,4,3);
+var peonXX: Pieza = new Pieza(1, 1, 1);
+var peonBB: Pieza = new Pieza(1, 4, 2);
+var peonYY: Pieza = new Pieza(1, 1, 1);
+var peonCC: Pieza = new Pieza(1, 4, 2);
 // setTimeout(function(){ alert("Hello"); }, 3000);
-
-tablero.setNewState(7,7,peonXX)
-tablero.setNewState(0,7,peonBB)
-console.log(tablero.stateOfBoard)
-tablero.stateOfBoard[peonXX.coordenadaX][peonXX.coordenadaY] = 0;
-tablero.stateOfBoard[4][4] = 1;
-console.log(tablero.stateOfBoard)
+// x = row (numero) y = columna (letra)
+function easyTransfor(num:number){
+  return 7-num;
+}
+var pruebaX = 2;
+var pruebaY = 2;
+tablero.setNewState(7, 0, peonBB);
+tablero.setNewState(7, 7, peonYY);
+tablero.setNewState(0, 7, peonCC);
+tablero.setNewState(easyTransfor(pruebaX) , pruebaY, peonXX);
+console.log(tablero.stateOfBoard);
+// tablero.stateOfBoard[easyTransfor(peonXX.coordenadaX) ][peonXX.coordenadaY] = 0;
+// tablero.stateOfBoard[4][4] = 1;
+console.log(tablero.stateOfBoard);
 genera_tabla();

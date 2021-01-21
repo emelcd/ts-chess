@@ -1,15 +1,25 @@
 var Board = /** @class */ (function () {
     function Board() {
         this.stateOfBoard = {
-            0: [4, 6, 8, 10, 12, 8, 6, 4],
-            1: [2, 2, 2, 2, 2, 2, 2, 2],
+            0: [0, 0, 0, 0, 0, 0, 0, 0],
+            1: [0, 0, 0, 0, 0, 0, 0, 0],
             2: [0, 0, 0, 0, 0, 0, 0, 0],
             3: [0, 0, 0, 0, 0, 0, 0, 0],
             4: [0, 0, 0, 0, 0, 0, 0, 0],
             5: [0, 0, 0, 0, 0, 0, 0, 0],
-            6: [1, 1, 1, 1, 1, 1, 1, 1],
-            7: [3, 5, 7, 9, 11, 7, 5, 3]
+            6: [0, 0, 0, 0, 0, 0, 0, 0],
+            7: [0, 0, 0, 0, 0, 0, 0, 0]
         };
+        // this.stateOfBoard = {
+        //   0: [4, 6, 8, 10, 12, 8, 6, 4],
+        //   1: [2, 2, 2, 2, 2, 2, 2, 2],
+        //   2: [0, 0, 0, 0, 0, 0, 0, 0],
+        //   3: [0, 0, 0, 0, 0, 0, 0, 0],
+        //   4: [0, 0, 0, 0, 0, 0, 0, 0],
+        //   5: [0, 0, 0, 0, 0, 0, 0, 0],
+        //   6: [1, 1, 1, 1, 1, 1, 1, 1],
+        //   7: [3, 5, 7, 9, 11, 7, 5, 3],
+        // };
         this.turn = 1;
     }
     Board.prototype.getStatePosition = function (coordenadaX, coordenadaY) {
@@ -202,7 +212,6 @@ function renderPosition(state) {
         return "";
     }
 }
-;
 function genera_tabla() {
     // Obtener la referencia del elemento body
     var body = document.getElementsByTagName("body")[0];
@@ -241,12 +250,22 @@ function genera_tabla() {
 }
 genera_tabla();
 var peonXX = new Pieza(1, 1, 1);
-var peonBB = new Pieza(4, 4, 3);
+var peonBB = new Pieza(1, 4, 2);
+var peonYY = new Pieza(1, 1, 1);
+var peonCC = new Pieza(1, 4, 2);
 // setTimeout(function(){ alert("Hello"); }, 3000);
-tablero.setNewState(7, 7, peonXX);
-tablero.setNewState(0, 7, peonBB);
+// x = row (numero) y = columna (letra)
+function easyTransfor(num) {
+    return 7 - num;
+}
+var pruebaX = 2;
+var pruebaY = 2;
+tablero.setNewState(7, 0, peonBB);
+tablero.setNewState(7, 7, peonYY);
+tablero.setNewState(0, 7, peonCC);
+tablero.setNewState(easyTransfor(pruebaX), pruebaY, peonXX);
 console.log(tablero.stateOfBoard);
-tablero.stateOfBoard[peonXX.coordenadaX][peonXX.coordenadaY] = 0;
-tablero.stateOfBoard[4][4] = 1;
+// tablero.stateOfBoard[easyTransfor(peonXX.coordenadaX) ][peonXX.coordenadaY] = 0;
+// tablero.stateOfBoard[4][4] = 1;
 console.log(tablero.stateOfBoard);
 genera_tabla();
